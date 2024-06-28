@@ -71,6 +71,7 @@ const generateUI = (function() {
   function handleClick(event) {
     const rowNumber = event.target.dataset.row;
     const columnNumber = event.target.dataset.column;
+    event.target.removeEventListener('click', handleClick);
 
     game.startMatch(rowNumber, columnNumber, event.target);
 
@@ -83,17 +84,19 @@ const generateUI = (function() {
 
   function restartMatch() {
     const board = game.getBoard();
+    const winnerDisplay = document.querySelector('.winner-display');
+    const playerTurn = document.querySelector('.player-turn');
 
-    if (board.flat().includes('x' || 'o')) {
-      game.resetMatch(board);
-      game.resetCurrentPlayer();
-      for (const box of boxes) {
-        box.textContent = '';
-      }
-      removeUIFunctions(boxes);
-      attachEventListener(boxes, restartBtn);
+    game.resetMatch(board);
+    game.resetCurrentPlayer();
+    for (const box of boxes) {
+      box.textContent = '';
     }
 
+    removeUIFunctions(boxes);
+    attachEventListener(boxes, restartBtn);
+    winnerDisplay.textContent = '';
+    playerTurn.textContent = 'Press on a box to begin';
   }
 
   const removeUIFunctions = (boxesArray) => {
@@ -139,6 +142,7 @@ const GameConsole = () => {
   }
 
   const board = [];
+  const filteredBoard = [];
 
   const generateBoard = function(boardArray) {
     while (boardArray.length > 0) {
@@ -157,26 +161,42 @@ const GameConsole = () => {
 
 
   const getBoard = () => board;
+  const getFilteredBoard = () => filteredBoard;
 
   const startMatch = (row, column, target) => {
     if (row < 0 || row > 2 || column < 0 || column > 2) return;
     else if (board[row][column] !== null) return;
     board[row][column] = currentPlayer.marker;
+    filteredBoard.push(currentPlayer.marker);
+
+    console.log(filteredBoard);
     winner = checkWinner(board);
     updateUI(target);
     if (winner) {
       showWinner(winner);
+      while (filteredBoard.length > 0) {
+        filteredBoard.pop();
+        console.log(filteredBoard);
+      }
     }
     updateCurrentPlayer();
     displayCurrentPlayer(getCurrentPlayer());
-    console.log(board);
+    
+    if (filteredBoard.length === 9) {
+      const winnerDisplay = document.querySelector('.winner-display');
+      winnerDisplay.textContent = "It's a draw!";
+      while (filteredBoard.length > 0) {
+        filteredBoard.pop();
+        console.log(filteredBoard);
+      }
+    }
   }
 
   const updateUI = (target) => {
     target.textContent = getCurrentPlayer().marker;
   }
 
-  const showWinner = (winnerName) => {
+  const showWinner = (winnerName = "It's a tie!") => {
     const winnerDisplay = document.querySelector('.winner-display');
     winnerDisplay.textContent = `${winnerName.name} wins!`;
   }
@@ -203,7 +223,6 @@ const GameConsole = () => {
 
     if (!flatBoard.includes(null)) {
       resetMatch(board);
-      console.log(board);
     }
 
     return null;
@@ -223,6 +242,7 @@ const GameConsole = () => {
     resetCurrentPlayer,
     getAllPlayers,
     getCurrentPlayer,
+    getFilteredBoard,
     getWinner,
   }
 }
