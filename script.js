@@ -1,8 +1,12 @@
 const generateUI = (function() {
+  const gameMenu = document.querySelector('.game-menu');
   const rows = 3;
   const columns = 3;
   const panel = document.querySelector('.panel');
   const restartBtn = document.querySelector('.restart-button');
+
+  gameMenu.showModal();
+  console.log(gameMenu);
 
   const makeBoxes = (target) => {
     for (let i = 0; i < rows; i++) {
@@ -64,7 +68,7 @@ const generateUI = (function() {
       removeUIFunctions(boxes);
       attachEventListener(boxes, restartBtn);
     }
-    
+
   }
 
   const removeUIFunctions = (boxesArray) => {
