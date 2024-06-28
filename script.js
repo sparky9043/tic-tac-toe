@@ -59,6 +59,8 @@ const generateUI = (function() {
     for (const box of boxes) {
       box.textContent = '';
     }
+    removeUIFunctions(boxes);
+    attachEventListener(boxes, restartBtn);
   }
 
   const removeUIFunctions = (boxesArray) => {
