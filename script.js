@@ -39,7 +39,10 @@ const generateUI = (function() {
   attachEventListener(boxes);
 
   function handleClick(event) {
-    console.log(event.target);
+    const rowNumber = event.target.dataset.row;
+    const columnNumber = event.target.dataset.column;
+
+    game.startMatch(rowNumber, columnNumber);
   }
 
 })();
