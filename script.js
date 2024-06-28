@@ -100,15 +100,20 @@ const GameConsole = () => {
     {
       name: 'Player Two',
       marker: 'o',
-    },
+    },  
   ];
- 
+
   let winner;
   let currentPlayer = players[0];
 
   const getCurrentPlayer = () => currentPlayer;
   const updateCurrentPlayer = () => {
     currentPlayer = currentPlayer === players[0] ? players[1] : players[0];
+  }
+
+  const displayCurrentPlayer = (currentPlayer) => {
+    const playerTurn = document.querySelector('.player-turn');
+    playerTurn.textContent = `${currentPlayer.name}'s Turn`;
   }
 
   const board = [];
@@ -141,6 +146,7 @@ const GameConsole = () => {
       showWinner(winner);
     }
     updateCurrentPlayer();
+    displayCurrentPlayer(getCurrentPlayer());
     console.log(board);
   }
 
