@@ -18,17 +18,16 @@ const generateUI = (function() {
   const boxes = document.querySelectorAll('.panel div');
 
   const assignRowToBoxes = (boxesArray) => {
-    for (let i = 0; i < rows; i++) {
-      boxesArray[i].dataset.row = 0;
+    const rowNumbers = [
+      0, 0, 0,
+      1, 1, 1,
+      2, 2, 2,
+    ];
+
+    for (let i = 0; i < boxesArray.length; i++) {
+      boxesArray[i].dataset.row = rowNumbers[i];
     }
 
-    for (let i = rows; i < rows * 2; i++) {
-      boxesArray[i].dataset.row = 1;
-    }
-
-    for (let i = rows * 2; i < rows * 3; i++) {
-      boxesArray[i].dataset.row = 2;
-    }
   }
 
   assignRowToBoxes(boxes);
