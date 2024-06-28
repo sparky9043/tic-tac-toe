@@ -2,7 +2,8 @@ const generateUI = (function() {
   const rows = 3;
   const columns = 3;
   const panel = document.querySelector('.panel');
-  
+  const restartBtn = document.querySelector('.restart-button');
+
   const makeBoxes = (target) => {
     for (let i = 0; i < rows; i++) {
       for (let j = 0; j < columns; j++) {
@@ -32,11 +33,12 @@ const generateUI = (function() {
 
   assignRowToBoxes(boxes);
 
-  const attachEventListener = (boxesArray) => {
+  const attachEventListener = (boxesArray, restart) => {
     boxesArray.forEach(box => box.addEventListener('click', handleClick));
+    restart.addEventListener('click', restartMatch);
   }
 
-  attachEventListener(boxes);
+  attachEventListener(boxes, restartBtn);
 
   function handleClick(event) {
     const rowNumber = event.target.dataset.row;
@@ -47,6 +49,11 @@ const generateUI = (function() {
     const winner = game.getWinner();
 
     if (winner) removeUI(boxes);
+  }
+
+  function restartMatch() {
+    const board = game.getBoard();
+    game.resetMatch(board);
   }
 
   const removeUI = (boxesArray) => {
