@@ -3,10 +3,16 @@ const generateUI = (function() {
   const rows = 3;
   const columns = 3;
   const panel = document.querySelector('.panel');
+  const startBtn = document.querySelector('#start-button');
   const restartBtn = document.querySelector('.restart-button');
 
+  startBtn.addEventListener('click', (event) => {
+    event.preventDefault();
+
+    gameMenu.close();
+  });
+
   gameMenu.showModal();
-  console.log(gameMenu);
 
   const makeBoxes = (target) => {
     for (let i = 0; i < rows; i++) {
