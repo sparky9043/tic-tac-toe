@@ -21,12 +21,21 @@ const GameConsole = () => {
 
   const board = [];
 
-  for (let i = 0; i < rows; i++) {
-    board[i] = [];
-    for (let j = 0; j < columns; j++) {
-      board[i].push(emptyMarker);
+  const generateBoard = function() {
+    while (board.length > 0) {
+      board.pop();
+    }
+
+    for (let i = 0; i < rows; i++) {
+      board[i] = [];
+      for (let j = 0; j < columns; j++) {
+        board[i].push(emptyMarker);
+      }
     }
   }
+
+  generateBoard();
+
 
   const getBoard = () => board;
 
@@ -34,8 +43,12 @@ const GameConsole = () => {
     if (row < 0 || row > 2 || column < 0 || column > 2) return;
     else if (board[row][column] !== null) return;
     board[row][column] = currentPlayer.marker;
-    checkWinner(board);
-    updateCurrentPlayer();
+    let winner = checkWinner(board);
+    if (winner) {
+      resetMatch(board);
+    } else {
+      updateCurrentPlayer();
+    }
   }
 
   const checkWinner = (boardArray) => {
@@ -55,9 +68,15 @@ const GameConsole = () => {
     for (const combination of winningCombinations) {
       const [a, b, c] = combination;
       if (flatBoard[a] && flatBoard[a] === flatBoard[b] && flatBoard[b] === flatBoard[c]) {
-        console.log('winner');
+        return currentPlayer;
       }
     }
+
+    return null;
+  }
+
+  const resetMatch = (boardArray) => {
+    console.log(boardArray);
   }
 
   return {
