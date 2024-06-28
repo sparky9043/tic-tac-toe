@@ -6,13 +6,17 @@ const generateUI = (function() {
   const startBtn = document.querySelector('#start-button');
   const restartBtn = document.querySelector('.restart-button');
 
-  startBtn.addEventListener('click', (event) => {
-    event.preventDefault();
+  const showGameMenu = (modal) => {
+    modal.showModal();
 
-    gameMenu.close();
-  });
+    startBtn.addEventListener('click', (event) => {
+      event.preventDefault();
+  
+      gameMenu.close();
+    });
+  }
 
-  gameMenu.showModal();
+  showGameMenu(gameMenu);
 
   const makeBoxes = (target) => {
     for (let i = 0; i < rows; i++) {
