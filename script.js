@@ -55,12 +55,16 @@ const generateUI = (function() {
 
   function restartMatch() {
     const board = game.getBoard();
-    game.resetMatch(board);
-    for (const box of boxes) {
-      box.textContent = '';
+
+    if (board.flat().includes('x' || 'o')) {
+      game.resetMatch(board);
+      for (const box of boxes) {
+        box.textContent = '';
+      }
+      removeUIFunctions(boxes);
+      attachEventListener(boxes, restartBtn);
     }
-    removeUIFunctions(boxes);
-    attachEventListener(boxes, restartBtn);
+    
   }
 
   const removeUIFunctions = (boxesArray) => {
