@@ -94,11 +94,11 @@ const GameConsole = () => {
 
   const players = [
     {
-      name: 'playerOne',
+      name: 'Player One',
       marker: 'x',
     },
     {
-      name: 'playerTwo',
+      name: 'Player Two',
       marker: 'o',
     },
   ];
