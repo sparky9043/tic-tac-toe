@@ -48,15 +48,20 @@ const generateUI = (function() {
 
     const winner = game.getWinner();
 
-    if (winner) removeUI(boxes);
+    if (winner) {
+      removeUIFunctions(boxes);
+    }
   }
 
   function restartMatch() {
     const board = game.getBoard();
     game.resetMatch(board);
+    for (const box of boxes) {
+      box.textContent = '';
+    }
   }
 
-  const removeUI = (boxesArray) => {
+  const removeUIFunctions = (boxesArray) => {
     boxesArray.forEach(box => box.removeEventListener('click', handleClick));
   }
 
