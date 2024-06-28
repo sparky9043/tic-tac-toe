@@ -32,7 +32,7 @@ body {
 }
 
 .panel {
-  border: 2px solid blue;
+  border: 4px solid black;
   height: 450px;
   width: 450px;
 
@@ -51,13 +51,21 @@ body {
 .panel div {
   width: 150px;
   height: 150px;
-  border: 2px solid red;
   box-sizing: border-box;
 
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 6rem;
+  border: 1px solid rgb(210, 210, 210);
+}
+
+.panel div:hover {
+  background: rgb(221, 221, 221);
+}
+
+.panel div:active {
+  background: rgb(179, 179, 179);
 }
 
 ::backdrop {
