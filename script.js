@@ -4,13 +4,44 @@ const generateUI = (function() {
   const panel = document.querySelector('.panel');
   
   const makeBoxes = (target) => {
-    for (let i = 0; i < rows*columns; i++) {
-      const box = document.createElement('div');
-      target.appendChild(box);
+    for (let i = 0; i < rows; i++) {
+      for (let j = 0; j < columns; j++) {
+        const box = document.createElement('div');
+        box.dataset.column = j;
+        target.appendChild(box);        
+      }
     }
   }
 
   makeBoxes(panel);
+
+  const boxes = document.querySelectorAll('.panel div');
+
+  const assignRowToBoxes = (boxesArray) => {
+    for (let i = 0; i < rows; i++) {
+      boxesArray[i].dataset.row = 0;
+    }
+
+    for (let i = rows; i < rows * 2; i++) {
+      boxesArray[i].dataset.row = 1;
+    }
+
+    for (let i = rows * 2; i < rows * 3; i++) {
+      boxesArray[i].dataset.row = 2;
+    }
+  }
+
+  assignRowToBoxes(boxes);
+
+  const attachEventListener = (boxesArray) => {
+    boxesArray.forEach(box => box.addEventListener('click', handleClick));
+  }
+
+  attachEventListener(boxes);
+
+  function handleClick(event) {
+    console.log(event.target);
+  }
 
 })();
 
