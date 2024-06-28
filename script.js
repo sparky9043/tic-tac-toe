@@ -72,6 +72,7 @@ const generateUI = (function() {
 
     if (board.flat().includes('x' || 'o')) {
       game.resetMatch(board);
+      game.resetCurrentPlayer();
       for (const box of boxes) {
         box.textContent = '';
       }
@@ -107,8 +108,13 @@ const GameConsole = () => {
   let currentPlayer = players[0];
 
   const getCurrentPlayer = () => currentPlayer;
+
   const updateCurrentPlayer = () => {
     currentPlayer = currentPlayer === players[0] ? players[1] : players[0];
+  }
+
+  const resetCurrentPlayer = () => {
+    currentPlayer = players[0];
   }
 
   const displayCurrentPlayer = (currentPlayer) => {
@@ -198,6 +204,7 @@ const GameConsole = () => {
     getBoard,
     startMatch,
     resetMatch,
+    resetCurrentPlayer,
     getCurrentPlayer,
     getWinner,
   }
