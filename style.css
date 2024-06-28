@@ -82,3 +82,8 @@ form button {
   border-radius: 10px;
   font-size: inherit;
 }
+
+form input[type="text"] {
+  padding: .2rem .2rem;
+  font-size: 1.2em;
+}
