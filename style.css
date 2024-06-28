@@ -3,6 +3,10 @@
   padding: 0;
 }
 
+:root {
+  font-size: 18px;
+}
+
 ul {
   list-style: none;
 }
@@ -21,6 +25,10 @@ body {
 
 .title {
   margin: 1rem;
+}
+
+.display-player {
+  margin-bottom: 1rem;
 }
 
 .panel {
