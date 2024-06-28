@@ -16,9 +16,15 @@ const generateUI = (function() {
       
       const players = game.getAllPlayers();
 
-      for (let i = 0; i < players.length; i++) {
-        players[i].name = inputs[i].value;
+      const updatePlayerNames = (playersArray) => {
+        for (let i = 0; i < playersArray.length; i++) {
+          if (!inputs[i].value) playersArray[i].name = playersArray[i].name;
+          else playersArray[i].name = inputs[i].value;
+        }        
       }
+
+      updatePlayerNames(players);
+
   
       gameMenu.close();
     });
