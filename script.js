@@ -1,3 +1,19 @@
+const generateUI = (function() {
+  const rows = 3;
+  const columns = 3;
+  const panel = document.querySelector('.panel');
+  
+  const makeBoxes = (target) => {
+    for (let i = 0; i < rows*columns; i++) {
+      const box = document.createElement('div');
+      target.appendChild(box);
+    }
+  }
+
+  makeBoxes(panel);
+
+})();
+
 const GameConsole = () => {
   const rows = 3;
   const columns = 3;
