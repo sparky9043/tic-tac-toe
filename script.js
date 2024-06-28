@@ -7,10 +7,18 @@ const generateUI = (function() {
   const restartBtn = document.querySelector('.restart-button');
 
   const showGameMenu = (modal) => {
-    // modal.showModal();
+    modal.showModal();
 
     startBtn.addEventListener('click', (event) => {
       event.preventDefault();
+
+      const inputs = document.querySelectorAll('.game-menu input');
+      
+      const players = game.getAllPlayers();
+
+      for (let i = 0; i < players.length; i++) {
+        players[i].name = inputs[i].value;
+      }
   
       gameMenu.close();
     });
@@ -106,6 +114,8 @@ const GameConsole = () => {
 
   let winner;
   let currentPlayer = players[0];
+
+  const getAllPlayers = () => players;
 
   const getCurrentPlayer = () => currentPlayer;
 
@@ -205,6 +215,7 @@ const GameConsole = () => {
     startMatch,
     resetMatch,
     resetCurrentPlayer,
+    getAllPlayers,
     getCurrentPlayer,
     getWinner,
   }
