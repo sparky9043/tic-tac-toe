@@ -7,7 +7,7 @@ const generateUI = (function() {
   const restartBtn = document.querySelector('.restart-button');
 
   const showGameMenu = (modal) => {
-    modal.showModal();
+    // modal.showModal();
 
     startBtn.addEventListener('click', (event) => {
       event.preventDefault();
@@ -136,14 +136,21 @@ const GameConsole = () => {
     else if (board[row][column] !== null) return;
     board[row][column] = currentPlayer.marker;
     winner = checkWinner(board);
-    
     updateUI(target);
+    if (winner) {
+      showWinner(winner);
+    }
     updateCurrentPlayer();
     console.log(board);
   }
 
   const updateUI = (target) => {
     target.textContent = getCurrentPlayer().marker;
+  }
+
+  const showWinner = (winnerName) => {
+    const winnerDisplay = document.querySelector('.winner-display');
+    winnerDisplay.textContent = `${winnerName.name} wins!`;
   }
 
   const checkWinner = (boardArray) => {
