@@ -43,6 +43,14 @@ const generateUI = (function() {
     const columnNumber = event.target.dataset.column;
 
     game.startMatch(rowNumber, columnNumber);
+
+    const winner = game.getWinner();
+    
+    if (winner) removeUI(boxes);
+  }
+
+  const removeUI = (boxesArray) => {
+    boxesArray.forEach(box => box.removeEventListener('click', handleClick));
   }
 
 })();
@@ -62,8 +70,11 @@ const GameConsole = () => {
       marker: 'o',
     },
   ];
-
+ 
+  let winner;
   let currentPlayer = players[0];
+
+  const getCurrentPlayer = () => currentPlayer;
   const updateCurrentPlayer = () => {
     currentPlayer = currentPlayer === players[0] ? players[1] : players[0];
   }
@@ -92,12 +103,12 @@ const GameConsole = () => {
     if (row < 0 || row > 2 || column < 0 || column > 2) return;
     else if (board[row][column] !== null) return;
     board[row][column] = currentPlayer.marker;
-    let winner = checkWinner(board);
-    console.log(board);
+    winner = checkWinner(board);
     if (winner) {
       resetMatch(board);
     } else {
       updateCurrentPlayer();
+      console.log(board);
     }
   }
 
@@ -123,19 +134,25 @@ const GameConsole = () => {
 
     if (!flatBoard.includes(null)) {
       resetMatch(board);
+      console.log(board);
     }
 
     return null;
   }
 
+  const getWinner = () => winner;
+
   const resetMatch = (boardArray) => {
     generateBoard(boardArray);
-    
+    console.log(boardArray);
   }
 
   return {
     getBoard,
     startMatch,
+    resetMatch,
+    getCurrentPlayer,
+    getWinner,
   }
 }
 
