@@ -42,10 +42,10 @@ const generateUI = (function() {
     const rowNumber = event.target.dataset.row;
     const columnNumber = event.target.dataset.column;
 
-    game.startMatch(rowNumber, columnNumber);
+    game.startMatch(rowNumber, columnNumber, event.target);
 
     const winner = game.getWinner();
-    
+
     if (winner) removeUI(boxes);
   }
 
@@ -99,17 +99,19 @@ const GameConsole = () => {
 
   const getBoard = () => board;
 
-  const startMatch = (row, column) => {
+  const startMatch = (row, column, target) => {
     if (row < 0 || row > 2 || column < 0 || column > 2) return;
     else if (board[row][column] !== null) return;
     board[row][column] = currentPlayer.marker;
     winner = checkWinner(board);
-    if (winner) {
-      resetMatch(board);
-    } else {
-      updateCurrentPlayer();
-      console.log(board);
-    }
+    
+    updateUI(target);
+    updateCurrentPlayer();
+    console.log(board);
+  }
+
+  const updateUI = (target) => {
+    target.textContent = getCurrentPlayer().marker;
   }
 
   const checkWinner = (boardArray) => {
